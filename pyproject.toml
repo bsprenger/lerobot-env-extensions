@@ -5,7 +5,7 @@ description = "This repository contains reinforcement learning environment wrapp
 authors = [{ name = "Ben Sprenger", email = "ben.sprenger@rogers.com" }]
 readme = "README.md"
 keywords = ['python']
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.10,<4.0"
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
@@ -16,6 +16,11 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "gym-pybullet-drones",
+    "lerobot",
+    "numpy>=1.26.4",
 ]
 
 [project.urls]
@@ -114,3 +119,7 @@ skip_empty = true
 [tool.coverage.run]
 branch = true
 source = ["lerobot_env_extensions"]
+
+[tool.uv.sources]
+lerobot = { git = "https://github.com/huggingface/lerobot.git" }
+gym-pybullet-drones = { git = "https://github.com/utiasDSL/gym-pybullet-drones.git" }
