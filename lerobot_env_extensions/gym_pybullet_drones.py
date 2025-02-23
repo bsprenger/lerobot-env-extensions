@@ -3,7 +3,7 @@ from typing import Any, ClassVar, cast
 
 import gymnasium as gym
 import numpy as np
-import pybullet as p  # type: ignore[no-untyped-def, unused-ignore]
+import pybullet as p
 from gym_pybullet_drones.envs import HoverAviary
 from gym_pybullet_drones.utils.enums import ActionType, ObservationType
 from gymnasium import spaces
@@ -21,6 +21,10 @@ class PybulletDronesLeRobotWrapper(HoverAviary):
         "render_fps": _DEFAULT_FPS,
         "render_modes": ["rgb_array"],
     }
+
+    observation_space: gym.spaces.Dict
+    action_space: gym.spaces.Box
+    render_mode: str | None
 
     def __init__(
         self,
@@ -93,7 +97,7 @@ class PybulletDronesLeRobotWrapper(HoverAviary):
         seed: int | None = None,
         options: dict[str, Any] | None = None,
     ) -> tuple[dict, dict]:
-        obs, info = super().reset(seed=seed, options=options)
+        obs, info = super().reset(seed=seed, options=options)  # type: ignore[arg-type]
         return self._process_observation(obs), info
 
     def render(self) -> RenderFrame | list[RenderFrame] | None:  # type: ignore[override]
