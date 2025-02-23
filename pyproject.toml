@@ -60,9 +60,10 @@ warn_return_any = true
 warn_unused_ignores = true
 show_error_codes = true
 mypy_path = "stubs"
+follow_imports = "normal"
 
 [[tool.mypy.overrides]]
-module = ["pybullet"]
+module = ["pybullet", "gym_pybullet_drones.*", "lerobot.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
