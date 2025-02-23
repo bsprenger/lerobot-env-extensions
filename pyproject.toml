@@ -19,6 +19,7 @@ classifiers = [
 ]
 dependencies = [
     "gym-pybullet-drones",
+    "gymnasium>=0.29.1",
     "lerobot",
     "numpy>=1.26.4",
 ]
