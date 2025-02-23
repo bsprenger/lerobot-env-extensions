@@ -51,6 +51,7 @@ py-modules = ["lerobot_env_extensions"]
 
 [tool.mypy]
 files = ["lerobot_env_extensions"]
+exclude = ["stubs/.*"]
 disallow_untyped_defs = true
 disallow_any_unimported = true
 no_implicit_optional = true
