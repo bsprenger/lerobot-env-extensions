@@ -3,7 +3,7 @@ from typing import Any, ClassVar, cast
 
 import gymnasium as gym
 import numpy as np
-import pybullet as p
+import pybullet as p  # type: ignore[no-untyped-def, unused-ignore]
 from gym_pybullet_drones.envs import HoverAviary
 from gym_pybullet_drones.utils.enums import ActionType, ObservationType
 from gymnasium import spaces
@@ -75,7 +75,7 @@ class PybulletDronesLeRobotWrapper(HoverAviary):
             upAxisIndex=2,
             physicsClientId=self.CLIENT,
         )
-        self.proj_matrix = p.computeProjectionMatrixFOV(  # type: ignore[call-arg]  # TODO: Fix pybullet stubs
+        self.proj_matrix = p.computeProjectionMatrixFOV(
             fov=60.0, aspect=self.render_width / self.render_height, nearVal=0.1, farVal=1000.0
         )
 
@@ -102,7 +102,7 @@ class PybulletDronesLeRobotWrapper(HoverAviary):
             return None
 
         # Get camera image from PyBullet
-        (_, _, rgb, _, _) = p.getCameraImage(  # type: ignore[call-arg]  # TODO: Fix pybullet stubs
+        (_, _, rgb, _, _) = p.getCameraImage(
             width=self.render_width,
             height=self.render_height,
             viewMatrix=self.view_matrix,
