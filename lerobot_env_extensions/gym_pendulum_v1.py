@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
+from typing import Any
 
 import gymnasium as gym
+import numpy as np
 from gymnasium.envs.registration import register
 from gymnasium.spaces import Dict
 from lerobot.common.constants import ACTION, OBS_ROBOT
@@ -9,25 +11,30 @@ from lerobot.configs.types import FeatureType, PolicyFeature
 
 
 class PendulumDictWrapper(gym.Wrapper):
-    def __init__(self, env):
+    def __init__(self, env: gym.Env) -> None:
         super().__init__(env)
         self.observation_space = Dict({"agent_pos": self.env.observation_space})
 
-    def observation(self, obs):
+    def observation(self, obs: np.ndarray) -> dict[str, np.ndarray]:
         return {"agent_pos": obs}
 
-    def step(self, action):
+    def step(self, action: np.ndarray) -> tuple[dict, float, bool, bool, dict]:
         obs, reward, terminated, truncated, info = self.env.step(action)
         info["is_success"] = False  # Always False for now
-        return self.observation(obs), reward, terminated, truncated, info
+        return self.observation(obs), float(reward), terminated, truncated, info
 
-    def reset(self, **kwargs):
-        obs, info = self.env.reset(**kwargs)
+    def reset(
+        self,
+        *,
+        seed: int | None = None,
+        options: dict[str, Any] | None = None,
+    ) -> tuple[dict, dict]:
+        obs, info = self.env.reset(seed=seed, options=options)
         return self.observation(obs), info
 
 
-def make_pendulum_dict(**kwargs):
-    env = gym.make("Pendulum-v1", **kwargs)
+def make_pendulum_dict(**kwargs: dict) -> PendulumDictWrapper:
+    env = gym.make("Pendulum-v1", **kwargs)  # type: ignore[arg-type] # TODO: Fix this
     return PendulumDictWrapper(env)
 
 
