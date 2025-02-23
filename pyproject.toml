@@ -61,6 +61,10 @@ warn_unused_ignores = true
 show_error_codes = true
 mypy_path = "stubs"
 
+[[tool.mypy.overrides]]
+module = ["pybullet"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
