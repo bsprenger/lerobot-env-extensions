@@ -22,6 +22,7 @@ dependencies = [
     "gymnasium>=0.29.1",
     "lerobot",
     "numpy>=1.26.4",
+    "pybullet>=3.2.7",
 ]
 
 [project.urls]
