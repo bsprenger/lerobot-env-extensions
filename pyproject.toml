@@ -18,9 +18,9 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "gym-pybullet-drones @ https://github.com/utiasDSL/gym-pybullet-drones.git",
+    "gym-pybullet-drones @ git+https://github.com/utiasDSL/gym-pybullet-drones.git",
     "gymnasium>=0.29.1",
-    "lerobot @ https://github.com/huggingface/lerobot.git",
+    "lerobot @ git+https://github.com/huggingface/lerobot.git",
     "numpy>=1.26.4",
     "pybullet>=3.2.7",
 ]
@@ -128,7 +128,3 @@ skip_empty = true
 [tool.coverage.run]
 branch = true
 source = ["lerobot_env_extensions"]
-
-[tool.uv.sources]
-lerobot = { git = "https://github.com/huggingface/lerobot.git" }
-gym-pybullet-drones = { git = "https://github.com/utiasDSL/gym-pybullet-drones.git" }
