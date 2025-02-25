@@ -1,4 +1,5 @@
 import gymnasium as gym
+import numpy as np
 import pytest
 from gym_pybullet_drones.utils.enums import ActionType
 
@@ -41,4 +42,20 @@ def test_custom_environment_creation(fps, act_type, expected_act_shape, expected
     assert env.render_mode == "rgb_array"
     assert env.action_space.shape == (expected_act_shape,)
     assert env.observation_space["agent_pos"].shape == (expected_state_shape,)
+    env.close()
+
+
+def test_episode_length():
+    episode_length = 1
+    config = PybulletDronesEnv(episode_length=episode_length)
+    env = gym.make("gym_pybullet_drones/Hover-v0", **config.gym_kwargs)
+    env.reset(seed=0)
+    for i in range(1, episode_length + 1):
+        _, _, done, truncated, _ = env.step(np.zeros(shape=env.action_space.shape))
+        if done or truncated:
+            assert i == episode_length
+            break
+    else:
+        # raises if the loop completes without breaking
+        raise AssertionError
     env.close()
