@@ -133,10 +133,9 @@ register(
 class PybulletDronesEnv(EnvConfig):
     task: str = "hover"
     fps: int = 30
+    episode_length: int = 200
     render_mode: str = "rgb_array"
-
     act_type: ActionType = ActionType.ONE_D_RPM
-
     features: dict[str, PolicyFeature] = field(
         default_factory=lambda: {
             "action": PolicyFeature(type=FeatureType.ACTION, shape=()),
@@ -154,7 +153,7 @@ class PybulletDronesEnv(EnvConfig):
     def gym_kwargs(self) -> dict:
         return {
             "ctrl_freq": self.fps,
-            "max_episode_steps": 200,
+            "max_episode_steps": self.episode_length,
             "render_mode": self.render_mode,
             "act": self.act_type,
         }
